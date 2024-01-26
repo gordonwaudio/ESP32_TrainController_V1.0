@@ -17,7 +17,9 @@
 // Joystick J1Button = 14                                            Needs INPUT_PULLUP
 // Joystick J1X = 35, J1Y = 36 (Analogue Input)
 // 6_Way Switch = 32 (Analogue Input)
-// Shift Register SRClockPin = 0, SRLatchPin = 2, SRDataPin = 15
+// Shift Register 1 SR1ClockPin = 0, SR1LatchPin = 2, SR1DataPin = 15
+// Shift Register 2 SR2ClockPin = 17, SR2LatchPin = 16, SR2DataPin = 4
+
 
 // 2 Analogue Ports
 // 15 Digital Ports
@@ -62,9 +64,9 @@ u_int8_t SRSwitchesKeyMap1[numSR1 * 8]
         };
 
 // Shift Register 2 Constants
-const int SR2ClockPin = 0;
-const int SR2LatchPin = 2;
-const int SR2DataPin = 15;
+const int SR2ClockPin = 17;
+const int SR2LatchPin = 16;
+const int SR2DataPin = 4;
 const int numSR2 = 4;
 
 // Shift Register 1 Variables
