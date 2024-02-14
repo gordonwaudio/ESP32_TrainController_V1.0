@@ -17,7 +17,7 @@
 // Joystick J1Button = 14                                            Needs INPUT_PULLUP
 // Joystick J1X = 35, J1Y = 36 (Analogue Input)
 // 6_Way Switch = 32 (Analogue Input)
-// Shift Register 1 SR1ClockPin = 0, SR1LatchPin = 2, SR1DataPin = 15
+// Shift Register 1 SR1ClockPin = 21, SR1LatchPin = 19, SR1DataPin = 18
 // Shift Register 2 SR2ClockPin = 17, SR2LatchPin = 16, SR2DataPin = 4
 
 
@@ -33,9 +33,9 @@ const int sw6Sensitivity = 300;
 const int delaySR = 20;
 
 // Shift Register 1 Constants
-const int SR1ClockPin = 0;
-const int SR1LatchPin = 2;
-const int SR1DataPin = 15;
+const int SR1ClockPin = 21;
+const int SR1LatchPin = 19;
+const int SR1DataPin = 18;
 const int numSR1 = 4;
 
 // Shift Register 1 Variables
@@ -57,10 +57,10 @@ long int lastSRSDebounceTime1[numSR1 * 8]
 
 u_int8_t SRSwitchesKeyMap1[numSR1 * 8] 
       = {
-        'r', KEY_PAGE_UP, '5', '6', 'v', 'b', 'h', 'j'
-        , 'a', 'd', ' ', 'n', 'i', '/', ';', 0x27
-        , 'f', 'g', 'k', 'l', 'm', 'p', 'q', 'z'
-        , 'f', 'g', 'k', 'l', 'm', 'p', 'q', 'z'
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
+        , 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'
+        , 'q', 'r', 's', 't', 'u', 'v', 'w', 'x'
+        , '0', '1', '2', '3', '4', '5', '6', '7'
         };
 
 // Shift Register 2 Constants
@@ -69,8 +69,8 @@ const int SR2LatchPin = 16;
 const int SR2DataPin = 4;
 const int numSR2 = 4;
 
-// Shift Register 1 Variables
-byte SRSwitchVar2[numSR2] = {72, 33, 55, 101}; //01001000 (non-zero to help debugging)
+// Shift Register2 Variables
+byte SRSwitchVar2[numSR2] = {2, 33, 55, 101}; //01001000 (non-zero to help debugging)
 bool prevousSRSwitchState2[numSR2 * 8] 
       = {
         LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
@@ -81,17 +81,17 @@ bool prevousSRSwitchState2[numSR2 * 8]
 long int lastSRSDebounceTime2[numSR2 * 8] 
       = {
         0, 0, 0, 0, 0, 0, 0, 0
-        , 0, 0, 0, 0, 0, 0, 0, 0
+        , 0, 0, 0, 0, 0, 0, 0, 0  
         , 0, 0, 0, 0, 0, 0, 0, 0
         , 0, 0, 0, 0, 0, 0, 0, 0
         };
 
 u_int8_t SRSwitchesKeyMap2[numSR2 * 8] 
       = {
-        'r', KEY_PAGE_UP, '5', '6', 'v', 'b', 'h', 'j'
-        , 'a', 'd', ' ', 'n', 'i', '/', ';', 0x27
-        , 'f', 'g', 'k', 'l', 'm', 'p', 'q', 'z'
-        , 'f', 'g', 'k', 'l', 'm', 'p', 'q', 'z'
+        '1', '2', '3', '4', '5', '6', '7', '*'
+        , 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
+        , 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'
+        , 'q', 'r', 's', 't', 'u', 'v', 'w', 'x'
         };
 
 // 6Way Switch
@@ -136,9 +136,9 @@ void setup() {
   pinMode(SR1LatchPin, OUTPUT);
   pinMode(SR1DataPin, INPUT);
 
-  pinMode(SR1ClockPin, OUTPUT);
-  pinMode(SR1LatchPin, OUTPUT);
-  pinMode(SR1DataPin, INPUT);
+  pinMode(SR2ClockPin, OUTPUT);
+  pinMode(SR2LatchPin, OUTPUT);
+  pinMode(SR2DataPin, INPUT);
 
   // Init 6Way Switch
   pinMode(SW6Pin, INPUT);
@@ -171,6 +171,10 @@ void loop() {
   { 
         SRSwitchVar1[n] = shiftIn(SR1DataPin, SR1ClockPin, MSBFIRST);   
   }
+
+  //digitalWrite(SR2LatchPin, 1);
+  //delayMicroseconds(delaySR);
+  //digitalWrite(SR2LatchPin, 0);
 
   for (int n = 0; n < numSR2; n++)
   { 
@@ -205,19 +209,19 @@ void loop() {
   {
     for (int n = 0; n < 8; n++)
     {
-      if ((now - lastSRSDebounceTime1[n]) > debounceDelay)
+      if ((now - lastSRSDebounceTime1[n + nSR * 8]) > debounceDelay)
       {
         bool buttonState = SRSwitchVar1[nSR] & (1 << n);
 
         if (buttonState != prevousSRSwitchState1[n + nSR * 8] && (buttonState == HIGH))
         {
           bleKeyboard.press(SRSwitchesKeyMap1[n + nSR * 8]);
-          lastSRSDebounceTime1[n] = now;
+          lastSRSDebounceTime1[n + nSR * 8] = now;
         }
         else if (buttonState != prevousSRSwitchState1[n + nSR * 8] && (buttonState == LOW))
         {
           bleKeyboard.release(SRSwitchesKeyMap1[n + nSR * 8]);
-          lastSRSDebounceTime1[n] = now;
+          lastSRSDebounceTime1[n + nSR * 8] = now;
         }
         prevousSRSwitchState1[n + nSR * 8] = buttonState;
       }
@@ -228,19 +232,19 @@ void loop() {
   {
     for (int n = 0; n < 8; n++)
     {
-      if ((now - lastSRSDebounceTime2[n]) > debounceDelay)
+      if ((now - lastSRSDebounceTime2[n + nSR * 8]) > debounceDelay)
       {
         bool buttonState = SRSwitchVar2[nSR] & (1 << n);
 
         if (buttonState != prevousSRSwitchState2[n + nSR * 8] && (buttonState == HIGH))
         {
           bleKeyboard.press(SRSwitchesKeyMap2[n + nSR * 8]);
-          lastSRSDebounceTime2[n] = now;
+          lastSRSDebounceTime2[n + nSR * 8] = now;
         }
         else if (buttonState != prevousSRSwitchState2[n + nSR * 8] && (buttonState == LOW))
         {
           bleKeyboard.release(SRSwitchesKeyMap2[n + nSR * 8]);
-          lastSRSDebounceTime2[n] = now;
+          lastSRSDebounceTime2[n + nSR * 8] = now;
         }
         prevousSRSwitchState2[n + nSR * 8] = buttonState;
       }
