@@ -36,62 +36,62 @@ const int delaySR = 20;
 const int SR1ClockPin = 17;
 const int SR1LatchPin = 16;
 const int SR1DataPin = 4;
-const int numSR1 = 1;
+const int numSR1 = 4;
 
 // Shift Register 1 Variables
-byte SRSwitchVar1[numSR1] = {72/*, 33, 55, 101*/}; //01001000 (non-zero to help debugging)
+byte SRSwitchVar1[numSR1] = {72, 33, 55, 101}; //01001000 (non-zero to help debugging)
 bool prevousSRSwitchState1[numSR1 * 8] 
       = {
         LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
-//        , LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
-//        , LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
-//        , LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
+        , LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
+        , LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
+        , LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
         };
 long int lastSRSDebounceTime1[numSR1 * 8] 
       = {
         0, 0, 0, 0, 0, 0, 0, 0
-//        , 0, 0, 0, 0, 0, 0, 0, 0
-//        , 0, 0, 0, 0, 0, 0, 0, 0
-//        , 0, 0, 0, 0, 0, 0, 0, 0
+        , 0, 0, 0, 0, 0, 0, 0, 0
+        , 0, 0, 0, 0, 0, 0, 0, 0
+        , 0, 0, 0, 0, 0, 0, 0, 0
         };
 
 u_int8_t SRSwitchesKeyMap1[numSR1 * 8] 
       = {
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
-//        , 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'
-//        , 'q', 'r', 's', 't', 'u', 'v', 'w', 'x'
-//        , '0', '1', '2', '3', '4', '5', '6', '7'
+        , 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'
+        , 'q', 'r', 's', 't', 'u', 'v', 'w', 'x'
+        , '0', '1', '2', '3', '4', '5', '6', '7'
         };
 
 // Shift Register 2 Constants
 const int SR2ClockPin = 21;
 const int SR2LatchPin = 19;
 const int SR2DataPin = 18;
-const int numSR2 = 1;
+const int numSR2 = 4;
 
 // Shift Register2 Variables
-byte SRSwitchVar2[numSR2] = {2/*, 33, 55, 101*/}; //01001000 (non-zero to help debugging)
+byte SRSwitchVar2[numSR2] = {2, 33, 55, 101}; //01001000 (non-zero to help debugging)
 bool prevousSRSwitchState2[numSR2 * 8] 
       = {
         LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
-//        , LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
-//        , LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
-//        , LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
+        , LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
+        , LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
+        , LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW
         };
 long int lastSRSDebounceTime2[numSR2 * 8] 
       = {
         0, 0, 0, 0, 0, 0, 0, 0
-//        , 0, 0, 0, 0, 0, 0, 0, 0  
-//        , 0, 0, 0, 0, 0, 0, 0, 0
-//        , 0, 0, 0, 0, 0, 0, 0, 0
+        , 0, 0, 0, 0, 0, 0, 0, 0  
+        , 0, 0, 0, 0, 0, 0, 0, 0
+        , 0, 0, 0, 0, 0, 0, 0, 0
         };
 
 u_int8_t SRSwitchesKeyMap2[numSR2 * 8] 
       = {
         '1', '2', '3', '4', '5', '6', '7', '*'
-//        , 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
-//        , 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'
-//        , 'q', 'r', 's', 't', 'u', 'v', 'w', 'x'
+        , 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
+        , 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'
+        , 'q', 'r', 's', 't', 'u', 'v', 'w', 'x'
         };
 
 // 6Way Switch
