@@ -57,10 +57,10 @@ long int lastSRSDebounceTime1[numSR1 * 8]
 
 u_int8_t SRSwitchesKeyMap1[numSR1 * 8] 
       = {
-        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
-        , 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'
-        , 'q', 'r', 's', 't', 'u', 'v', 'w', 'x'
-        , '0', '1', '2', '3', '4', '5', '6', '7'
+        'd', 'a', ',', '.', 's', 'n', 'w', ' '
+        , KEY_LEFT_CTRL, 'h', 'i', 'l', '1', '2', '3', '4'
+        , 'y', 'k', KEY_ESC, KEY_F9, KEY_LEFT_SHIFT, KEY_HOME, 'z', 'p'
+        , KEY_F10, KEY_END, 't', 'r', 'v', 'g', '8', '9'
         };
 
 // Shift Register 2 Constants
@@ -86,13 +86,12 @@ long int lastSRSDebounceTime2[numSR2 * 8]
         , 0, 0, 0, 0, 0, 0, 0, 0
         };
 
-u_int8_t SRSwitchesKeyMap2[numSR2 * 8] 
-      = {
-        '1', '2', '3', '4', '5', '6', '7', '*'
-        , 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
-        , 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'
-        , 'q', 'r', 's', 't', 'u', 'v', 'w', 'x'
-        };
+u_int8_t SRSwitchesKeyMap2[numSR2 * 8] = {
+    0x27, ';', ']', '[', 'q', KEY_BACKSPACE, '/', '*'
+    , 'f', 'j', 'k', 0x5c, 'e', 'm', 'u', '*'
+    , 'e', 'o', KEY_PAGE_UP, KEY_INSERT, KEY_F12, KEY_F1, KEY_F2, KEY_F3
+    , KEY_DELETE, KEY_PAGE_DOWN, 'b', 'm', 'x', 'c', KEY_F11, '0'
+    };
 
 // 6Way Switch
 // 6Way Switch Constants
@@ -298,10 +297,10 @@ void loop() {
           {
             if (currentJoyXY[i] < joyLowerLimit)
             {
-              bleKeyboard.press(KEY_RIGHT_ARROW);
+              bleKeyboard.press(KEY_LEFT_ARROW);
             } else if (currentJoyXY[i] > joyUpperLimit)
             {
-              bleKeyboard.press(KEY_LEFT_ARROW);
+              bleKeyboard.press(KEY_RIGHT_ARROW);
             } else 
             {
               bleKeyboard.release(KEY_LEFT_ARROW);
