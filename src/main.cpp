@@ -57,10 +57,10 @@ long int lastSRSDebounceTime1[numSR1 * 8]
 
 u_int8_t SRSwitchesKeyMap1[numSR1 * 8] 
       = {
-        'd', 'a', ',', '.', 's', 'n', 'w', ' '
+        'a', 'd', ',', '.', 's', 'n', 'w', ' '
         , KEY_LEFT_CTRL, 'h', 'i', 'l', '1', '2', '3', '4'
         , 'y', 'k', KEY_ESC, KEY_F9, KEY_LEFT_SHIFT, KEY_HOME, 'z', 'p'
-        , KEY_F10, KEY_END, 't', 'r', 'v', 'g', '8', '9'
+        , '6', KEY_END, '5', 'r', 'v', 'g', '8', '9'
         };
 
 // Shift Register 2 Constants
@@ -88,8 +88,8 @@ long int lastSRSDebounceTime2[numSR2 * 8]
 
 u_int8_t SRSwitchesKeyMap2[numSR2 * 8] = {
     0x27, ';', ']', '[', 'q', KEY_BACKSPACE, '/', '*'
-    , 'f', 'j', 'k', 0x5c, 'e', 'm', 'u', '*'
-    , 'e', 'o', KEY_PAGE_UP, KEY_INSERT, KEY_F12, KEY_F1, KEY_F2, KEY_F3
+    , 'f', 'j', 'k', 0x5c, KEY_TAB, 'm', 'u', '*'
+    , 'e', 'o', KEY_PAGE_UP, KEY_INSERT, KEY_F12, KEY_F1, 't', KEY_F3
     , KEY_DELETE, KEY_PAGE_DOWN, 'b', 'm', 'x', 'c', KEY_F11, '0'
     };
 
@@ -272,12 +272,12 @@ void loop() {
       if ((buttonState != previousJoyState)
         && (buttonState == HIGH))
       {
-        Serial.println("Joystick Button pressed");
+        bleKeyboard.release('e');
         lastJoyButtonDebounceTime = now;
       } else if ((buttonState != previousJoyState)
         && (buttonState == LOW))
         {
-          Serial.println("Joystick Button released");
+          bleKeyboard.press('e');
           lastJoyButtonDebounceTime = now;
         }
       // save the current button state for comparison next time:
@@ -327,8 +327,8 @@ void loop() {
 }
 
 void SetNewLayout(){
-  Serial.println("Current Mode = " + String(currentSW6State));
-  delay(10);
-  Serial.println("Current SW6 Value = " + String(currentSW6Value));
+//  Serial.println("Current Mode = " + String(currentSW6State));
+//  delay(10);
+//  Serial.println("Current SW6 Value = " + String(currentSW6Value));
   bleKeyboard.releaseAll();
 }
